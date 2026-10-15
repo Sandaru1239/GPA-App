@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --parchment: #F6F1E4;
+  --card: #FFFCF5;
+  --ink: #241F18;
+  --ink-soft: #6B6255;
+  --hairline: #DCD2B8;
+  --seal: #8A2E2E;
+  --seal-dim: #C77A6E;
+  --teal: #1F4E4A;
+  --gold: #B08D3E;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--parchment);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(36,31,24,0.05) 1px, transparent 0);
+  background-size: 22px 22px;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+header.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 3px double var(--ink);
+  padding-bottom: 14px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.masthead h1 {
+  font-family: 'Lora', serif;
+  font-weight: 600;
+  font-size: 1.9rem;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.masthead .subtitle {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 4px;
+}
+
+.masthead-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#saved-stamp {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--teal);
+  border: 1px solid var(--teal);
+  padding: 3px 8px;
+  border-radius: 3px;
+  opacity: 0.75;
+  transform: rotate(-2deg);
+}
+#saved-stamp.flash { animation: stamp-in 0.4s ease; }
+@keyframes stamp-in {
+  from { opacity: 0; transform: rotate(-2deg) scale(1.3); }
+  to { opacity: 0.75; transform: rotate(-2deg) scale(1); }
+}
+
+.reset-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  background: none;
+  border: 1px solid var(--hairline);
+  color: var(--ink-soft);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.reset-btn:hover { border-color: var(--seal); color: var(--seal); }
+
+/* ---- Summary panel ---- */
+.summary {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 28px;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  padding: 22px 26px;
+  margin-bottom: 30px;
+  box-shadow: 0 1px 0 var(--hairline);
+}
+
+.gauge-wrap { position: relative; width: 130px; height: 130px; }
+.gauge-wrap svg { transform: rotate(-90deg); width: 130px; height: 130px; }
+.gauge-track { fill: none; stroke: var(--hairline); stroke-width: 9; }
+.gauge-arc {
+  fill: none;
+  stroke: var(--seal);
+  stroke-width: 9;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.5s ease;
+}
+.gauge-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#cgpa-value {
+  font-family: 'Lora', serif;
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: var(--seal);
+}
+.gauge-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.summary-details h2 {
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  margin: 0 0 2px;
+}
+#cgpa-class {
+  color: var(--teal);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+#progress-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-top: 10px;
+  display: block;
+}
+.progress-track {
+  margin-top: 6px;
+  height: 6px;
+  background: var(--hairline);
+  border-radius: 4px;
+  overflow: hidden;
+}
+#progress-fill {
+  height: 100%;
+  background: var(--gold);
+  width: 0%;
+  transition: width 0.4s ease;
+}
+
+/* ---- Year tabs ---- */
+#year-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+.year-tab {
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  padding: 9px 22px;
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  color: var(--ink-soft);
+  position: relative;
+  top: 1px;
+}
+.year-tab.active {
+  color: var(--ink);
+  background: var(--parchment);
+  border-color: var(--ink);
+  font-weight: 600;
+}
+
+#year-panel {
+  border-top: 1px solid var(--ink);
+  padding-top: 20px;
+}
+
+.semester-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 720px) {
+  .semester-grid { grid-template-columns: 1fr; }
+  .summary { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+}
+
+.semester-block {
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.semester-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px dashed var(--hairline);
+}
+.semester-header h3 {
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  margin: 0;
+}
+.semester-gpa {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--seal);
+  background: rgba(138,46,46,0.08);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.subject-list { padding: 4px 0; }
+.subject-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #EFE9D6;
+}
+.subject-row:last-child { border-bottom: none; }
+
+.subject-info { display: flex; flex-direction: column; min-width: 0; }
+.subject-code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+.subject-name {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subject-meta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.credit-pill {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--teal);
+  border: 1px solid var(--teal);
+  border-radius: 10px;
+  padding: 1px 8px;
+}
+
+.grade-select {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--hairline);
+  border-radius: 5px;
+  background: #fff;
+  padding: 5px 6px;
+  color: var(--ink);
+  cursor: pointer;
+}
+.grade-select:focus {
+  outline: 2px solid var(--seal-dim);
+  outline-offset: 1px;
+}
+
+footer.note {
+  margin-top: 34px;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
